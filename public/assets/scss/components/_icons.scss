@@ -1,0 +1,52 @@
+.bi {
+    width: 1rem;
+    height: 1rem;
+    &.bi-middle {
+        &:before {
+            vertical-align: middle;
+        }
+    }
+    &.bi-sub {
+        &:before {
+            vertical-align: sub;
+        }
+    }
+}
+.stats-icon {
+    width: 40px;
+    height:40px;
+    border-radius: 2rem;
+    background-color: black;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i {
+        color: #fff;
+        font-size: 1.5rem;
+    }
+    &.purple {
+        background-color: #BF83FF;
+    }
+    &.blue {
+        background-color: #57caeb;
+    }
+    &.red {
+        background-color: #FA5A7D;
+    }
+    &.green {
+        background-color: #3CD856;
+    }
+    &.orange {
+        background-color: #FF947A;    
+    }
+    @media (max-width: 767px) {
+        float: left;
+        margin-bottom: .4rem;
+        margin-top: none;
+    }
+}
+
+.burger-btn {
+    display:none;
+}

@@ -1,0 +1,31 @@
+[
+    {
+      "name": "Menu",
+      "isTitle": true
+    },
+    {
+      "name": "Dashboard",
+      "url": "admin.dashboard",
+      "icon": "grid-fill"
+    },
+    {
+        "name": "Pegawai",
+        "url": "pegawai",
+        "icon": "grid-fill"
+      },
+    {
+      "name": "Laporan",
+      "key": "contoh-submenu",
+      "icon": "three-dots",
+      "submenu": [
+        {
+          "name": "Laporan Tamu",
+          "url": "LaporanTamu"
+        },
+        {
+          "name": "Laporan Kurir",
+          "url": "LaporanKurir"
+        }
+      ]
+    }
+]

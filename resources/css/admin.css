@@ -1,0 +1,23 @@
+.kotak{
+    width: 150px;
+    height: 150px;
+    background-color: #FFE2E5;
+}
+
+.form-r {
+    border-radius: 100px;
+}
+
+Html, body {
+    height: 100%;
+    overflow-y: auto;   /* Aktifkan scroll vertikal */
+}
+
+#app {
+    height: 100%;
+    overflow-y: auto; /* Pastikan app dapat di-scroll jika kontennya panjang */
+}
+
+#main {
+    overflow-y: auto;
+}

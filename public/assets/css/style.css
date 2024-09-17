@@ -1,0 +1,420 @@
+body {
+    background-color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 1rem 2rem; */
+    margin-left: 21px;
+    margin-right: 21px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 10px;
+}
+nav ul li a {
+    font-size: 14px;
+    text-decoration: none;
+    font-family: "Poppins";
+    color: black;
+    font-weight: 500;
+    margin-right: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+}
+
+nav ul li a:hover {
+    border-bottom: 1px solid #5932ea;
+}
+nav div img {
+    max-width: 100px;
+}
+
+.btn-login {
+    background: linear-gradient(to right, #6358dc, #9891ee, #9891ee);
+    color: white !important;
+    width: 80px;
+    height: 40px;
+    padding-top: 8px;
+    border: none;
+    border-radius: 80px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif; /* Menggunakan font Poppins */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+div h1 {
+    font-family: "Poppins";
+    justify-content: center;
+    margin-left: 6rem;
+    margin-top: 6rem;
+    font-weight: 700;
+}
+
+div h2 {
+    font-family: "Poppins", sans-serif;
+    justify-content: center;
+    margin-left: 6rem;
+}
+
+.imgs {
+    width: 500px;
+    margin-left: 6rem;
+}
+
+.p {
+    font-family: "Poppins";
+    justify-content: center;
+    margin-left: 6rem;
+    margin-top: 2rem;
+    font-weight: 600;
+}
+
+.card-container {
+    display: flex;
+    margin: none;
+}
+
+.card-tamu {
+    width: 150px;
+    height: 150px;
+    background-color: #5932ea;
+    margin-left: 6rem;
+    margin-top: 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.card-tamu:hover {
+    background-color: #4323b7;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-kurir {
+    width: 150px;
+    height: 150px;
+    background-color: #f3e8ff;
+    margin-left: 6rem;
+    margin-top: 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.card-kurir:hover {
+    background-color: #e6ceff; /* Warna lebih gelap saat di-hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.par {
+    text-align: center;
+    padding: 1rem;
+    color: white;
+    font-family: "Poppins";
+    font-weight: 600;
+}
+
+.par2 {
+    text-align: center;
+    padding: 1rem;
+    color: #5932ea;
+    font-family: "Poppins";
+    font-weight: 600;
+}
+
+.icon-tamu {
+    color: white; /* Ganti dengan warna yang diinginkan */
+    font-size: 60px;
+    display: flex;
+    margin-left: 3rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+
+.icon-kurir {
+    color: #5932ea;
+    font-size: 60px;
+    display: flex;
+    margin-left: 2.5rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+.bg {
+    z-index: -1;
+}
+.form-control2 {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Poppins";
+    line-height: 1.5;
+    color: #9fa7ae;
+    appearance: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #5932ea;
+    border-radius: 2rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-select2 {
+    background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23343a40%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27M2 5l6 6 6-6%27/%3e%3c/svg%3e") !important;
+
+    display: block;
+    width: 100%;
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 14px;
+    font-family: "Poppins";
+    font-weight: 400;
+    line-height: 1.5;
+    color: #607080;
+    appearance: none;
+    background-color: #fff;
+    background-image: var(--bs-form-select-bg-img),
+        var(--bs-form-select-bg-icon, none);
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #5932ea;
+    border-radius: 2rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.btn.btn-primary2 {
+    color: #fff;
+    border-radius: 12px;
+}
+
+.tbl-peg-usr {
+    margin-top: 2rem;
+    border-radius: 22px !important;
+    box-shadow: #607080;
+}
+
+.btn-pegawai {
+    background: white;
+    box-shadow: none;
+    /* linear-gradient(to right, #6358dc, #9891ee, #9891ee); */
+    color: #6358dc;
+    border: 1px solid #6358dc;
+    /* border-color: #6358dc; */
+    width: 80px;
+    height: 40px;
+    padding: 8px;
+    /* border: none; */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    font-family: "Poppins", sans-serif; /* Menggunakan font Poppins */
+    /* box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15); */
+    justify-content: center;
+}
+
+.btn-pegawai:hover {
+    background-color: #6358dc;
+    color: white; /* Mengubah warna teks agar kontras dengan background */
+    border: 1px solid #6358dc; /* Mengatur border agar tetap serasi */
+}
+
+.btn-pegawai.active {
+    background-color: #6358dc;
+    color: white;
+}
+
+.pp {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+    display: flex;
+    justify-content: center; /* Pusatkan secara horizontal */
+    align-items: center; /* Pusatkan secara vertikal */
+}
+.btn-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Poppins";
+    line-height: 1.5;
+    color: #9fa7ae;
+    appearance: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #5932ea;
+    border-radius: 2rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.card-keamanan {
+    width: 230px;
+    height: 295px;
+    position: cover;
+    background-color: white;
+    border-radius: 20px;
+    padding: 5px;
+    box-shadow: 11px 15px 11px rgb(142 124 201 / 79%);
+    border: 1px solid #4323b7;
+    text-align:center;
+    /* z-index: 1; */
+    box-sizing:border-box;
+    overflow: hidden;
+}
+
+.card-shadow-km {
+    position: absolute;
+    /* top: 10px; */
+    /* left: 32px; */
+    width: 230px;
+    height: 295px;
+    background-color: #e6e1ff;
+    border-radius: 20px;
+    z-index: 0;
+    justify-content:center;
+}
+
+.card-containerr {
+    position: relative;
+    width: 300px;
+    display: flex;
+    justify-content:center;
+
+
+
+}
+.card-shadoww {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: #e6e1ff;
+    border-radius: 20px;
+    z-index: 1;
+}
+/* .card {
+    position: relative;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 2;
+} */
+
+.card-judul {
+    color: black;
+    font-family: "Poppins";
+    font-size: large;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.card-teks {
+    color: black;
+    font-family: "Poppins";
+    font-size: small;
+    font-weight: 500;
+    text-align: center;
+}
+
+.cards {
+    margin-left: 4rem;
+    margin-right: 4rem;
+    border: 0.001;
+    display: flex;
+    max-height: 100%;
+    padding: 0;
+}
+
+.map {
+    flex: 1; /* Mengatur agar peta dapat mengambil ruang yang cukup */
+}
+
+.card-info{
+    margin-top:2rem;
+    margin-right:4rem;
+    width:125px;
+    height:125px;
+    color:white;
+    border: 1px solid rgb(231 231 231 / 50%);
+    border-radius:12px;
+    box-shadow: 0 5px 11px rgb(0 0 0 / 39%);
+    text-align:center;
+}
+.icon {
+    color: black; 
+    font-size: 40px; 
+    padding:15px;
+}
+.jl{
+    color:black;
+    font-family:'Poppins';
+    font-size:10px;
+}
+
+.ceklis
+{
+
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.popup-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.popup-image {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+.popup h2 {
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-no, .btn-yes {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #5932EA;
+    color: #fff;
+    font-family:'Poppins';
+}
