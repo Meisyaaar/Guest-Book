@@ -351,7 +351,7 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <h6 class="text-muted font-semibold">Belum di Konfirmasi</h6>
-                                                        <h6 class="font-extrabold mb-0">112.000</h6>
+                                                        <h6 class="font-extrabold mb-0">0</h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -369,7 +369,7 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <h6 class="text-muted font-semibold">Sudah <br>Diterima</h6>
-                                                        <h6 class="font-extrabold mb-0">183.000</h6>
+                                                        <h6 class="font-extrabold mb-0">0</h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -387,7 +387,7 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <h6 class="text-muted font-semibold">Sudah <br>Ditolak<br></h6>
-                                                        <h6 class="font-extrabold mb-0">80.000</h6>
+                                                        <h6 class="font-extrabold mb-0">0</h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -408,23 +408,79 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card shadow">
-                            <p> div 1</p>
+                            <table class="table table-striped " id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Kurir</th>
+                                        <th>Ekspedisi</th>
+                                        <th>No telp</th>
+                                        <th>Pegawai</th>
+                                        <th>Tanggal dan Waktu</th>
+                                        <th>Status</th>
+                                        <th>Detail</th>
+    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- @foreach ($KedatanganEkspedisi as $Ked_ekspedisi)
+                                        <tr>
+                                            <td>{{ $Ked_ekspedisi->ekspedisi->Nama_kurir }}</td>
+                                            <td>{{ $Ked_ekspedisi->ekspedisi->Ekspedisi }}</td>
+                                            <td>{{ $Ked_ekspedisi->ekspedisi->No_Telp }}</td>
+                                            <td>{{ $Ked_ekspedisi->pegawai->user->name }}</td>
+                                            <td>{{ $Ked_ekspedisi->Tanggal_waktu }}</td>
+                                            <td>{{ $Ked_ekspedisi->status }}
+                                                <span class="badge bg-success">Terima</span>
+                                            </td>
+                                            <td>
+                                                <i class="fa-solid fa-bars" data-bs-toggle="modal"
+                                                    data-bs-target="#detail{{ $Ked_ekspedisi->id }}" style="cursor: pointer;"></i>
+    
+                                                <!-- Modal Bootstrap -->
+                                                <div class="modal fade" id="detail{{ $Ked_ekspedisi->id}}" tabindex="-1"
+                                                    aria-labelledby="detail{{ $Ked_ekspedisi->id }}Label" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5"
+                                                                    id="detail{{ $Ked_ekspedisi->id }}Label">Detail</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- Konten modal -->
+                                                                Nama Tamu: {{ $Ked_ekspedisi->ekspedisi->Nama_kurir }}<br>
+                                                                Bertemu Dengan: {{ $Ked_ekspedisi->pegawai->user->name }}<br>
+                                                                Waktu Pertemuan: {{ $Ked_ekspedisi->Tanggal_waktu }}<br>
+                                                                @if ($Ked_ekspedisi->Foto)
+                                                                <img src="{{ Storage::url('public/uploads/' . $Ked_ekspedisi->Foto) }}" alt="Foto">
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach --}}
+    
+    
+                                </tbody>
+                            </table>
 
                         </div>
 
                     </div>
-                    <div class="col-md-6">
+                    {{-- <div class="col-md-6">
                         <div class="card shadow">
                             <div>
-                                
+
                             </div>
                             
 
                         </div>
 
-                    </div>
+                    </div> --}}
                 </section>
             </div>
 
