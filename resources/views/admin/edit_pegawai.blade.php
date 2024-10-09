@@ -14,7 +14,7 @@
     @endif
     <div class="sidebar-menu">
         <ul class="menu">
-            <li class="sidebar-title">Menu updated budi</li>
+            <li class="sidebar-title">Menu updated budi andin</li>
     
     
             <li class="sidebar-item active ">
