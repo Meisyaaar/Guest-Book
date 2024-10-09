@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('Foto');
             $table->dateTime('Waktu_kedatangan');
             $table->enum('Status',['Menunggu konfirmasi','Diterima','Ditolak'])->defaukt('Menunggu konfirmasi');
+            $table->string('alasan');
             $table->timestamps();
         });
     }

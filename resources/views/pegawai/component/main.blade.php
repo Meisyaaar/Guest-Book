@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Document</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dashboard - Mazer Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Mazer Admin Dashboard</title>
 
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('assets/dist/assets/css/bootstrap.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/dist/assets/css/bootstrap.css') }}">
 
-        <link rel="stylesheet" href="{{ asset('assets/dist/assets/vendors/iconly/bold.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dist/assets/vendors/iconly/bold.css') }}">
 
-        <link rel="stylesheet" href="{{ asset('assets/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/dist/assets/css/app.css') }}">
-        <link rel="shortcut icon" href="{{ asset('assets/dist/assets/images/favicon.svg') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('assets/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dist/assets/css/app.css') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/dist/assets/images/favicon.svg') }}" type="image/x-icon">
 </head>
 <style>
     body {
         background-color: white;
     }
 </style>
+
 <body>
 
-    <div id="sidebar" class="active " style="border: 1px">
+    {{-- <div id="sidebar" class="active " style="border: 1px">
         <div class="sidebar-wrapper active">
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between">
@@ -40,7 +44,7 @@
                 </div>
             </div>
             {{-- SIDEBAR --}}
-        <div class="sidebar-menu">
+            {{-- <div class="sidebar-menu">
                 <ul class="menu">
                     <li class="sidebar-title">Menu</li>
 
@@ -335,25 +339,27 @@
             </div>
             <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
         </div>
-    </div>
+    </div> --}}
 
     <div class="page-content">
         @yield('content')
     </div>
 
 
-    
+
 </body>
-<script src="{{ asset('assets/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' )}}"></script>
-    <script src="{{ asset('assets/dist/assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript">
+    < script src = "{{ asset('assets/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}" >
+</script>
+<script src="{{ asset('assets/dist/assets/js/bootstrap.bundle.min.js') }}"></script>
 
-    <script src="{{ asset('assets/dist/assets/vendors/apexcharts/apexcharts.js') }}"></script>
-    <script src="{{ asset('assets/dist/assets/js/pages/dashboard.js') }}"></script>
+<script src="{{ asset('assets/dist/assets/vendors/apexcharts/apexcharts.js') }}"></script>
+<script src="{{ asset('assets/dist/assets/js/pages/dashboard.js') }}"></script>
 
-    <script src="{{ asset('assets/dist/assets/js/main.js') }}"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ asset('assets/dist/assets/js/main.js') }}"></script>
 
-    @stack('myscript')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@stack('myscript')
 
 </html>

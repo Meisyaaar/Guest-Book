@@ -12,7 +12,71 @@
             {{ session('success') }}
         </div>
     @endif
+    <div id="app">
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
 
+            <div class="page-heading">
+                <h3>Profile Statistics</h3>
+                <p>Selamat datang, {{ Auth::user()->name }}!</p>
+            </div>
+            {{-- SIDEBAR --}}
+            <div id="sidebar" class="active " style="border: 1px">
+                <div class="sidebar-wrapper active">
+                    <div class="sidebar-header">
+                        <div class="d-flex justify-content-between">
+                            <div class="logo">
+                                <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            </div>
+                            <div class="toggler">
+                                <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- SIDEBAR --}}
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
+                
+                
+                        <li class="sidebar-item active ">
+                            <a href="{{ route('admin.dashboard') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                
+                        <li class="sidebar-item active  ">
+                            <a href="{{ route('admin.pegawai') }}" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Pegawai</span>
+                            </a>
+                        </li>
+                
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Laporan</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{{ route('admin.LaporanTamu') }}">Laporan Tamu</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{{ route('admin.LaporanKurir') }}">Laporan Kurir</a>
+                                </li>
+                
+                            </ul>
+                        </li>
+                    </ul>
+                    </div>
+                    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+                </div>
+            </div>
     <section id="multiple-column-form">
         <div class="row match-height">
             <div class="col-12">
@@ -94,8 +158,8 @@
                             {{-- <div class="card-header">
                             <h4 class="card-title">Multiple Column</h4>
                         </div> --}}
-                            <div class="card-content">
-                                <div class="card-body">
+                        <div class="card-content">
+                            <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
@@ -163,9 +227,9 @@
 
         {{-- tabel --}}
         {{-- <form id="filterPTK" action="{{ route('filter.pegawai') }}" method="POST">
-        @csrf --}}
-        <div class="page-content">
-            <section class="section">
+            @csrf --}}
+            <div class="page-content">
+                <section class="section">
                 <div class="row" id="table-head">
                     <div class="col-12" style="padding-top: 2rem">
                         <div class="card shadow">
@@ -254,7 +318,8 @@
             </div>
           </div>
         </section>
-      </div>
+    </div>
+    </div>
   </section>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>

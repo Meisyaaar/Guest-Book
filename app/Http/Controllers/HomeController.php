@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use DNS2D;
 use App\Models\Tamu;
 use App\Models\User;
+use App\Mail\SendEmail;
 use App\Models\Pegawai;
 use App\Models\Ekspedisi;
+use App\Mail\SendEmailTamu;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\KedatanganTamu;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\KedatanganEkspedisi;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -91,6 +96,38 @@ class HomeController extends Controller
     {
         return view('fo.dashboard');
     }
+
+
+    public function handleScan(Request $request)
+    {
+        // Ambil nilai ID dari QR code
+        $id_kedatangan_tamu = $request->QR_code; // QR code di sini adalah id_kedatangan_tamu
+
+        // Cari tamu berdasarkan ID kedatangan tamu
+        $kedatangan_tamu = KedatanganTamu::with('tamu')->find($id_kedatangan_tamu); // Pastikan untuk memuat relasi
+
+        // Jika tamu tidak ditemukan, kembalikan pesan error
+        if (!$kedatangan_tamu) {
+            return redirect()->back()->with('error', 'Tamu tidak ditemukan.');
+        }
+
+        // Cek apakah tamu sudah check-in sebelumnya
+        if ($kedatangan_tamu->Waktu_kedatangan) {
+            $checkinTime = $kedatangan_tamu->Waktu_kedatangan->format('d/m/Y H:i:s');
+            return redirect()->back()->with('warning', "Tamu {$kedatangan_tamu->tamu->Nama} sudah check-in pada {$checkinTime}.");
+        }
+
+        // Update field Waktu_kedatangan dengan waktu saat ini
+        $kedatangan_tamu->Waktu_kedatangan = Carbon::now(); // Waktu saat ini
+        $kedatangan_tamu->save(); // Simpan perubahan ke database
+
+        // Simpan detail tamu ke session
+        session(['tamuDetail' => $kedatangan_tamu->tamu]);
+
+        // Berikan pesan sukses setelah check-in berhasil
+        return redirect()->back()->with('success', 'Check-in berhasil untuk tamu: ' . $kedatangan_tamu->tamu->Nama);
+    }
+
 
     public function pegawai()
     {
@@ -171,10 +208,10 @@ class HomeController extends Controller
     {
         return view('pegawai.Laporan_kurir');
     }
-    public function kunjungan()
-    {
-        return view('pegawai.kunjungan');
-    }
+    // public function kunjungan()
+    // {
+    //     return view('pegawai.kunjungan');
+    // }
 
     public function formTamu()
     {
@@ -205,8 +242,8 @@ class HomeController extends Controller
 
     public function add_tamu(Request $request)
     {
-        // dd($request->all());
-        $pegawai = Pegawai::with('user')->get();
+        $pegawai = Pegawai::with('user')->find($request->pegawai);
+
 
         $tamu = Tamu::create([
             'Nama' => $request->name,
@@ -215,29 +252,121 @@ class HomeController extends Controller
             'Email' => $request->email,
         ]);
 
-        // $user = User::create([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'password' => Hash::make($request->password),
-        //     'role' => 'PEG',
-        // ]);
+        $token = Str::random(60);
 
-        if ($tamu) {
+        $pegawai = Pegawai::with('user')->find($request->pegawai);
+        $imageData = $request->input('image');
+        $fileName = uniqid() . '.jpg';
+        $filePath = 'uploads/' . $fileName;
+        $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imageData));
+        $kedatangan_tamu = KedatanganTamu::create([
+            'id_pegawai' => $request->pegawai,
+            'id_tamu' => $tamu->id_tamu,
+            'Tujuan' => $request->tujuan,
+            'Instansi' => $request->instansi,
+            'Waktu_perjanjian' => $request->waktu_perjanjian,
+            'Foto' => $filePath,
+            'Waktu_kedatangan' => $request->waktu_kedatangan,
+            'Status' => 'Menunggu konfirmasi',
+            'token' => $token,
+        ]);
 
-            $kedatangan_tamu = KedatanganTamu::create([
-                'id_pegawai' => $request->pegawai,
-                'id_tamu' => $tamu->id_tamu,
-                // 'id_user' => $user->id,
-                'QR_code' => $request->qr_code,
-                'Tujuan' => $request->tujuan,
-                'Instansi' => $request->instansi,
-                'Waktu_perjanjian' => $request->waktu_perjanjian,
 
-            ]);
+        // Simpan file ke storage
+        Storage::put('public/' . $filePath, $image);
 
-            return redirect()->back()->with('success', 'janji temu berhasil dibuat');
-        }
+        $qrCodeContent = $kedatangan_tamu->id_kedatangan_tamu;
+        $qrCodePng = \DNS2D::getBarcodePNG($qrCodeContent, 'QRCODE');
+
+        // Save QR code to storage
+        $qrCodePath = 'qrcodes/' . $kedatangan_tamu->id_kedatangan_tamu . '.png';
+        Storage::put('public/' . $qrCodePath, base64_decode($qrCodePng));
+
+        // Update the database with the QR code path
+        $kedatangan_tamu->QR_code = $qrCodePath;
+        $kedatangan_tamu->save();
+
+        // Send email to staff
+        Mail::to($pegawai->user->email)->send(new SendEmail($kedatangan_tamu, $tamu));
+
+
+
+
+        return redirect()->back()->with('success', 'Berhasil membuat janji temu.');
     }
+    public function konfirmasiKedatangan($id, $token, $action)
+    {
+        $kedatangan_tamu = KedatanganTamu::findOrFail($id);
+        $tamu = Tamu::findOrFail($kedatangan_tamu->id_tamu);
+
+        if ($kedatangan_tamu->token !== $token) {
+            return redirect()->back();
+        }
+
+        if ($action === 'terima') {
+
+            $kedatangan_tamu->update(['Status' => 'Diterima', 'token' => null]);
+            $qrCodePath = 'qrcode/' . $kedatangan_tamu->id_kedatangan_tamu . 'png';
+            \Storage::disk('public')->put($qrCodePath, base64_decode($kedatangan_tamu->QR_code));
+            $fullQr_code = public_path('storage/' . $qrCodePath);
+
+            // Mail::to($tamu->email)->send(new SendEmailTamu($kedatangan_tamu, $tamu));
+
+            $kedatangan_tamu->update(['Status' => 'Diterima', 'token' => null]);
+
+            Mail::to($tamu->Email)->send(new SendEmailTamu($kedatangan_tamu, $tamu));
+
+            return view('pegawai.email.confir_terima', ['status' => 'Diterima']);
+        } elseif ($action === 'tolak') {
+            
+            return view('pegawai.email.alasan', compact('id', 'token'));
+        }
+
+        // return view('pegawai.email.confir_terima');
+    }
+
+    public function submitTolak(Request $request, $id, $token)
+    {
+        // $kedatangan_tamu = KedatanganTamu::findOrFail($id);
+
+        $request->validate([
+            'alasan' => 'required|string|max:255'
+        ]);
+
+        $kedatangan_tamu = KedatanganTamu::findOrFail($id);
+        $tamu = Tamu::findOrFail($kedatangan_tamu->id_tamu);
+
+        if ($kedatangan_tamu->token !== $token) {
+            return view('pegawai.email.confir_terima');
+        }
+
+        $kedatangan_tamu->update([
+            'Status' => 'Ditolak',
+            'alasan' => $request->input('alasan'),
+            'token' => null
+        ]);
+        Mail::to($tamu->Email)->send(new SendEmailTamu($kedatangan_tamu, $tamu));
+
+        return view('pegawai.email.confir_terima', ['status' => 'Ditolak', 'nama' => $kedatangan_tamu->tamu->nama]);
+    }
+
+    // public function tolakKedatangan(Request $request, $id, $token)
+    // {
+    //     $kedatangan = KedatanganTamu::findOrFail($id);
+
+    //     if ($kedatangan->token_konfirmasi !== $token) {
+    //         return redirect()->back()->with('error', 'Token tidak valid.');
+    //     }
+
+    //     $kedatangan->update([
+    //         'Status' => 'Ditolak',
+    //         'alasan' => $request->alasan
+    //     ]);
+
+    //     return redirect()->back()->with('success', 'Kedatangan tamu telah ditolak.');
+    // }
+
+
 
     public function add_kurir(Request $request)
     {
@@ -268,5 +397,52 @@ class HomeController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'berhasil');
+    }
+
+
+
+
+    public function updateStatusEmail($id, $status, $token)
+    {
+        // Temukan kedatangan berdasarkan ID
+        $kedatangan = KedatanganTamu::find($id);
+
+        // Validasi token yang dikirim dari email
+        if (!$kedatangan || $kedatangan->token !== $token) {
+            return redirect()->back()->with('error', 'Token tidak valid atau kedatangan tidak ditemukan.');
+        }
+
+        // Cek apakah status valid
+        if (!in_array($status, ['Diterima', 'Ditolak'])) {
+            return redirect()->back()->with('error', 'Status tidak valid.');
+        }
+
+        // Update status
+        $kedatangan->Status = $status;
+
+        // Jika statusnya Ditolak, arahkan ke form penolakan, jika Diterima simpan langsung
+        if ($status === 'Ditolak') {
+            return view('kedatangan.form_penolakan', compact('kedatangan'));
+        } else {
+            $kedatangan->save();
+            return redirect()->back()->with('success', 'Status kunjungan telah diperbarui menjadi Diterima.');
+        }
+    }
+
+    public function submitPenolakan(Request $request, $id, $token)
+    {
+        $kedatangan = KedatanganTamu::find($id);
+
+        // Validasi token
+        if (!$kedatangan || $kedatangan->token !== $token) {
+            return redirect()->back()->with('error', 'Token tidak valid.');
+        }
+
+        // Simpan alasan penolakan
+        $kedatangan->Status = 'Ditolak';
+        $kedatangan->alasan = $request->input('alasan');
+        $kedatangan->save();
+
+        return redirect()->back()->with('success', 'Kunjungan telah ditolak dengan alasan.');
     }
 }

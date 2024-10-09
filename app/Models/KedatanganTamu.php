@@ -9,10 +9,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class KedatanganTamu extends Model
 {
     use HasFactory;
+
     protected $table = 'kedatangan_tamu';
     protected $primaryKey = 'id_kedatangan_tamu'; // Set primary key
     public $incrementing = false; // Non-incrementing
     protected $keyType = 'string'; // String type
+    protected $casts = [
+        'Waktu_kedatangan' => 'datetime', // Pastikan kolom ini diperlakukan sebagai datetime
+    ];
     protected $fillable = [
         'id_kedatangan_tamu',
         'id_pegawai',
@@ -24,8 +28,11 @@ class KedatanganTamu extends Model
         'Waktu_perjanjian',
         'Foto',
         'Waktu_kedatangan',
-        'Status'
+        'Status',
+        'alasan',
+        'token'
     ];
+
 
     protected static function boot()
     {

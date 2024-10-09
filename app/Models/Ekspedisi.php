@@ -38,8 +38,12 @@ class Ekspedisi extends Model
         });
     }
 
-    public function kedatanganTamu(): HasMany
+    public function kedatanganKurir(): HasMany
     {
         return $this->hasMany(KedatanganEkspedisi::class, 'id_ekspedisi', 'id');
+    }
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'id_pegawai', 'NIP');
     }
 }

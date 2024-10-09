@@ -40,7 +40,7 @@
                                             @foreach ($pegawai as $data )
                                             <option value="{{ $data->NIP }}">{{ $data->user->name }}</option>
                                             @endforeach
-                                           
+
                                             {{-- <option value="B.inggris">Bahasa Inggris</option>
                                             <option value="Matematika">Matematika</option>
                                             <option value="RPL">RPL</option>
@@ -52,7 +52,7 @@
                                     <div class="form-group">
                                         <label for="country-floating">Email</label>
                                         <input type="text" id="country-floating" class="form-control2" name="email"
-                                            placeholder="Masukan Email" required="required">
+                                            placeholder="Masukan Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
@@ -64,22 +64,22 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="email-id-column">Instansi</label>
+                                        <label for="">Instansi</label>
                                         <input type="text" id="" class="form-control2"
                                             name="instansi" placeholder="Masukan Instansi" required="required">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="email-id-column">Tujuan</label>
+                                        <label for="">Tujuan</label>
                                         <input type="text" id="" class="form-control2"
                                             name="tujuan" placeholder="Masukan Tujuan" required="required">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="email-id-column">Tanggal Pertemuan</label>
-                                        <input type="date" id="password-id-column" class="form-control2"
+                                        <label for="">Tanggal Pertemuan</label>
+                                        <input type="datetime-local" id="password-id-column" class="form-control2"
                                             name="waktu_perjanjian" placeholder="Set Tanggal pertemuan" required="required">
                                     </div>
                                 </div>

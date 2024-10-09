@@ -19,6 +19,6 @@ class LaporanKurirController extends Controller
 
     public function tabel_kurir()
     {
-        
+
     }
 }

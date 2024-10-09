@@ -63,7 +63,7 @@
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="country-floating">Tanggal Pertemuan</label>
-                                            <input type="date" id="country-floating" class="form-control2"
+                                            <input type="datetime-local" id="country-floating" class="form-control2"
                                                 name="tanggal_waktu" placeholder="Set tanggal kedatangan"
                                                 required="required">
                                         </div>
@@ -94,6 +94,7 @@
                                                                 style="display: none"></canvas>
                                                             <img class="rounded-lg" id="foto-preview" src=""
                                                                 alt="Foto Preview" style="display: none" />
+                                                            <input type="hidden" id="foto-data" name="image">
                                                             <div class="d-flex justify-content-center mt-2">
                                                                 <button type="button" id="snap"
                                                                     class="btn btn-primary">
@@ -194,7 +195,8 @@
                 stopCamera();
             });
 
-            snapButton.addEventListener('click', function() {
+            snapButton.addEventListener('click', async function(data_uri) {
+                image = data_uri;
                 canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
                 fotoPreview.src = canvas.toDataURL('image/jpeg');
                 fotoPreview.style.display = 'block';
@@ -206,9 +208,8 @@
             });
 
             saveButton.addEventListener('click', function() {
-                // Di sini Anda bisa menambahkan kode untuk menyimpan atau mengirim foto
-                // Misalnya:
-                // sendPhotoToServer(fotoPreview.src);
+                const fotoDataInput = document.getElementById('foto-data');
+                fotoDataInput.value = fotoPreview.src; // Assign base64 image data to the hidden input
                 modal.hide();
             });
 
@@ -221,5 +222,4 @@
                 saveButton.style.display = 'none';
             });
         });
-
     </script>
